@@ -1,23 +1,3 @@
-.. image:: https://img.shields.io/readthedocs/edalize?longCache=true&style=flat-square&label=edalize.rtfd.io&logo=ReadTheDocs&logoColor=e8ecef
-        :target: https://edalize.readthedocs.io/en/latest/?badge=latest
-        :alt: Documentation Status
-
-.. image:: https://img.shields.io/badge/Chat-on%20gitter-4db797.svg?longCache=true&style=flat-square&logo=gitter&logoColor=e8ecef
-   :alt: Join the chat at https://gitter.im/librecores/edalize
-   :target: https://gitter.im/librecores/edalize?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
-
-.. image:: https://www.librecores.org/olofk/edalize/badge.svg?style=flat-square
-        :target: https://www.librecores.org/olofk/edalize
-        :alt: LibreCores
-
-.. image:: https://img.shields.io/pypi/dm/edalize.svg?longCache=true&style=flat-square&logo=PyPI&logoColor=e8ecef&label=PyPI%20downloads
-        :target: https://pypi.org/project/edalize/
-        :alt: PyPI downloads
-
-.. image:: https://img.shields.io/github/workflow/status/olofk/edalize/CI?longCache=true&style=flat-square&label=CI&logo=github%20actions&logoColor=e8ecef
-        :target: https://github.com/olofk/edalize/actions?query=workflow%3ACI
-        :alt: CI status
-
 ## **Edalize**
 
 ### **What's this?**
@@ -47,14 +27,12 @@ Edalize는 Python 모듈입니다. [github.com/olofk/edalize](https://github.co
 ```
 $ cd edalize
 $ python -m pip install -e .
-
 ```
 
 보고 모듈은 데이터 분석을 위한 여러 종속성을 사용하기 때문에 선택 사항이 되었습니다. 다음과 같이 설치할 수 있습니다.
 
 ```
 $ python -m pip install -e ".[reporting]"
-
 ```
 
 ### **How to use it?**
@@ -71,14 +49,12 @@ Edalize는 Python 도구이므로 Python 스크립트 파일 내에서 또는 Py
 
 ```
 from edalize import *
-
 ```
 
 이 자습서에는 os 모듈도 필요합니다.
 
 ```
 import os
-
 ```
 
 그런 다음 사용할 파일을 등록합니다.
@@ -94,7 +70,6 @@ files = [
   {'name' : os.path.relpath('vlog_tb_utils.v', work_root),
    'file_type' : 'verilogSource'}
 ]
-
 ```
 
 `clk_freq_hz` 디자인에는 정수를 허용 하는 이름을 가진 최상위 Verilog 매개변수가 있습니다. 기본값을 로 설정합니다 `1000`. 테스트 벤치에는 다음과 같은 plusarg를 설정하여 파형 덤핑을 활성화하는 옵션도 있습니다 `vcd`.
@@ -109,7 +84,6 @@ parameters = {'clk_freq_hz' : {'datatype' : 'int', 'default' : 1000, 'paramtype'
 
 ```
 tool = 'icarus'
-
 ```
 
 그리고 프로젝트의 최상위 및 이름에 대한 몇 가지 정보와 함께 단일 데이터 구조에 모두 넣습니다.
@@ -121,7 +95,6 @@ edam = {
   'parameters'   : parameters,
   'toplevel'     : 'blinky_tb'
 }
-
 ```
 
 이제 Edalize에서 백엔드 객체를 가져와야 합니다.
@@ -129,7 +102,6 @@ edam = {
 ```
 backend = get_edatool(tool)(edam=edam,
                             work_root=work_root)
-
 ```
 
 디렉터리와 프로젝트 파일을 만듭니다.
@@ -137,7 +109,6 @@ backend = get_edatool(tool)(edam=edam,
 ```
 os.makedirs(work_root)
 backend.configure()
-
 ```
 
 이 시점에서 우리는 아직 실제 EDA 도구를 실행 `work_root`하지 않았으며 선호하는 경우 Edalize 없이 디렉토리의 파일을 사용할 수 있습니다. 그러나 Edalize로 예제를 계속 진행해 보겠습니다.
@@ -146,7 +117,6 @@ backend.configure()
 
 ```
 backend.build()
-
 ```
 
 그리고 마지막으로 우리의 주장과 함께 그것을 실행하십시오. 일부 유형의 매개변수(예: plusargs)는 런타임에 정의되며 이 시점에서 이름과 새 값을 에 전달하여 해당 값을 변경할 수 있습니다 `run()`. 또는 완전히 건너뛸 수 있으며 구성 단계의 기본값이 사용됩니다. VCD 로깅을 활성화한 상태에서 실행해 보겠습니다.
@@ -154,7 +124,6 @@ backend.build()
 ```
 args = {'vcd' : True}
 backend.run(args)
-
 ```
 
 타다! 우리는 시뮬레이션했습니다. 연습으로 도구 변수를 예를 들어 modelsim, xsim 또는 Edalize에서 지원하는 다른 시뮬레이터로 변경하고 변경 없이 작동하는지 확인하십시오.
